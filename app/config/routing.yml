@@ -1,0 +1,5 @@
+lotto_user:
+    resource: "@lottoUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+

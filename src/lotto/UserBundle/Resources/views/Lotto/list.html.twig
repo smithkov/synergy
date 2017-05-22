@@ -1,0 +1,76 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <!-- /inner_content-->
+    <div class="inner_content">
+        <div class="w3l_agileits_breadcrumbs">
+            <div class="w3l_agileits_breadcrumbs_inner">
+                <ul>
+                    <li><a href="{{path("lotto_user_homepage")}}">Dashboard</a><span>«</span></li>
+                    <li> Lotto List</li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="inner_content_w3_agile_info two_in">
+
+            <!--/forms-->
+            <div class="forms-main_agileits">
+                <div class="graph-form agile_info_shadow">
+                    <h3 class="w3_inner_tittle two"> Lotto List </h3>
+                    <a class="btn btn-primary" href="{{path('lotto_create')}}">Create New Lotto</a><hr>
+                    <div class="form-body">
+                        <table id="example" class="display" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Amount</th>
+                                    <th>Start date</th>
+                                    <th>End date</th>
+                                    <th>Date of creation</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for item in lotto %}
+                                    <tr>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.code}}</td>
+                                        <td>{{item.price}}</td>
+                                        <td>{{ item.startDate|date("d/m/Y") }}</td>
+                                        <td>{{ item.endDate|date("d/m/Y") }}</td>
+                                        <td>{{ item.dateOfCreation|date("d/m/Y") }}</td>
+                                        <td>{% if  "now"|date("Y-m-d") > item.endDate|date("Y-m-d") %}
+                                            Expired
+                                            {%endif %}
+                                            </td>
+                                            <td>
+                                                {% if item.isActive and "now"|date("Y-m-d") < item.endDate|date("Y-m-d") %}
+                                                    <a title="Click other buttons to deactivate"><img style="height: 20px; width: 20px" src="{{asset("bundles/lottouser/images/cancel.ico")}}"/></a>
+                                                {% elseif not item.isActive and "now"|date("Y-m-d") < item.endDate|date("Y-m-d")  %}
+                                                    <a title="Click to activate" href="{{path('toggle_lotto',{"id":item.id})}}"><img style="height: 20px; width: 20px" src="{{asset("bundles/lottouser/images/tick.ico")}}"/></a>
+                                                {% else %}
+                                                    <a><img style="height: 20px; width: 20px" src="{{asset("bundles/lottouser/images/expire.ico")}}"/></a>
+                                                {%endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#example').DataTable({
+                                                "pagingType": "full_numbers"
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div> 
+
+                    </div>
+                </div>
+                {% endblock %}

@@ -1,0 +1,54 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <!-- /inner_content-->
+    <div class="inner_content">
+        <div class="w3l_agileits_breadcrumbs">
+            <div class="w3l_agileits_breadcrumbs_inner">
+                <ul>
+                    <li><a href="{{path("lotto_user_homepage")}}">Dashboard</a><span>«</span></li>
+                    <li>Payment Confirmation</li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="inner_content_w3_agile_info two_in">
+            
+            <!--/forms-->
+            <div class="forms-main_agileits">
+                <div class="graph-form agile_info_shadow">
+                    <h3 class="w3_inner_tittle two">Payment Confirmation </h3>
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{error}}
+
+                        </div>
+                    {% endif %}
+                   
+                    <div class="form-body">
+                        <form method="post"> 
+                            <div class="form-group"> 
+                                
+                                <label>Please enter Bitcoin TransactionId</label>
+                                {{form_widget(form.transactionId,{'attr':{"class":"form-control","placeholder":"Transaction Id"}})}} 
+                            </div> 
+                            
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            {{form_rest(form)}}
+                        </form> 
+                    </div>
+                </div>
+                <!--/forms-inner-->
+                <div class="forms-inner">
+                    <!--/set-1-->
+                    <div class="set-1_w3ls">
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div> 
+
+        </div>
+    </div>
+{% endblock %}

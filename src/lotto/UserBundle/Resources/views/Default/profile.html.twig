@@ -1,0 +1,100 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <!-- /inner_content-->
+    <div class="inner_content">
+        <div class="w3l_agileits_breadcrumbs">
+            <div class="w3l_agileits_breadcrumbs_inner">
+                <ul>
+                    <li><a href="{{path("lotto_user_homepage")}}">Dashboard</a><span>«</span></li>
+                    <li>My Profile</li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="inner_content_w3_agile_info two_in">
+
+            <!--/forms-->
+            <div class="forms-main_agileits">
+                <div class="graph-form agile_info_shadow">
+                    <h3 class="w3_inner_tittle two">My Profile </h3>
+                    {% if not form.vars.valid %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{ form_errors(form) }}
+                        </div>
+                    {% endif %}
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{error}}
+
+                        </div>
+                    {% endif %}
+
+                    {% if success %}
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{success}}
+
+                        </div>
+                    {% endif %}
+                    <form  class="contact-form" method="post" action="#">
+                        <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-8">
+
+                                <label>Username</label>
+                                {{form_widget(form.username,{'attr':{"class":"form-control","placeholder":"Username",'readonly':'true'}})}}
+
+                                <label>Full Name</label>
+                                {{form_widget(form.fullName,{'attr':{"class":"form-control txtEdit","placeholder":"Full name",'readonly':'true'}})}}
+
+                                <label>Email Address</label>
+                                {{form_widget(form.email,{'attr':{"class":"form-control","placeholder":"Email",'readonly':'true'}})}}
+
+                                <label>Phone</label>
+                                {{form_widget(form.phone,{'attr':{"class":"form-control txtEdit","placeholder":"Phone",'readonly':'true'}})}}
+
+                                <label>Bitcoin Address</label>
+                                {{form_widget(form.wallet,{'attr':{"class":"form-control txtEdit","placeholder":"Wallet Address",'readonly':'true'}})}}
+                                 {{form_rest(form)}}
+                                 <hr>
+                                <button id="btnEdit" class="btn btn-info" type="button">Edit</button> <button id="btnUpdate" class="btn btn-primary" type="submit">Update</button> <button id="btnCancel" class="btn btn-danger" type="button">Cancel Edit</button>
+                            </div>
+                            <div class="col-lg-2">
+                               
+                            {% if form.vars.value.path %}
+                                 <img style="width:150px; height: 150px" class="img-thumbnail img-responsive" src="{{asset("/uploads/" ~ form.vars.value.path)}}"/><hr>
+                            {% else%}
+                                <img style="width:150px; height: 150px" class="img-thumbnail img-responsive" src="{{asset("/uploads/default-avatar.png")}}"/><hr>
+                            {%endif %}
+                                
+                                <a href="{{path("lotto_user_upload")}}" class="btn btn-primary btn-block">Upload Picture <i class="fa fa-upload" aria-hidden="true"></i></a>
+                            </div>
+                        </div>                      
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div> 
+
+    </div>
+    <script>
+        $('#btnUpdate').prop('disabled', true);
+        $('#btnCancel').hide();
+        $('#btnEdit').click(function () {
+            $('.txtEdit').prop('readonly', false);
+            $('#btnEdit').prop('disabled', true);
+            $('#btnCancel').show();
+            $('#btnUpdate').prop('disabled', false);
+        })
+        $('#btnCancel').click(function () {
+            $('#btnUpdate').prop('disabled', true);
+            $('#btnEdit').prop('disabled', false);
+            $('.txtEdit').prop('readonly', true);
+            $(this).hide();
+        });
+    </script>
+{% endblock %}

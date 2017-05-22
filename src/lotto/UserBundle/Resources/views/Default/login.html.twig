@@ -1,0 +1,36 @@
+{% extends "::main.html.twig" %}
+{% block content %}
+    <div class="container blog singlepost">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <article class="col-md-4">
+                <h1 class="page-header sidebar-title">Login</h1>
+                {% if error %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{error}}
+                    </div>
+                {% endif %}
+                <form  class="contact-form" method="post" action="#">  
+                    <label>Username</label>
+                    {{form_widget(form.username,{'attr':{"class":"form-control","placeholder":"Username"}})}}
+
+                    <label>Password</label>
+                    {{form_widget(form.password,{'attr':{"class":"form-control","placeholder":"Password"}})}}
+
+                    <hr>
+                    <button class="btn btn-danger" type="submit">Login</button>
+                    <p>Don't have an account yet? <a href='{{path("lotto_register")}}'>Register</a></p>
+                    {{form_rest(form)}}
+                </form>
+            </article>
+            <div class="col-md-4"></div>
+            <!-- Blog Sidebar Column -->
+            <script>
+            $(function () {
+                $("#linkLogin").addClass("active");
+            });
+        </script>
+        </div>
+    </div>
+{% endblock%}

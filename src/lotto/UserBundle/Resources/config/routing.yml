@@ -1,0 +1,69 @@
+lotto_user_homepage:
+    path:     /user
+    defaults: { _controller: lottoUserBundle:Default:index }
+lotto_main_homepage:
+    path:     /
+    defaults: { _controller: lottoUserBundle:Default:home }
+lotto_register:
+    path:     /register-synergy-lotto-and-stand-a-chance-to-win-big
+    defaults: { _controller: lottoUserBundle:Default:register }
+lotto_login:
+    path:     /login_to_synergy
+    defaults: { _controller: lottoUserBundle:Default:login }   
+lotto_create:
+    path:     /lotto_create_synergy_for_play
+    defaults: { _controller: lottoUserBundle:Lotto:create }
+lotto_list:
+    path:     /lotto_list_synergy_for_play_list
+    defaults: { _controller: lottoUserBundle:Lotto:list }
+lotto_play:
+    path:     /lotto_list_synergy_for_play_win_lotto
+    defaults: { _controller: lottoUserBundle:Lotto:play }
+lotto_confirm_payment:
+    path:     /lotto_list_synergy_confirm_payment
+    defaults: { _controller: lottoUserBundle:Lotto:confirmPayment }
+lotto_ack_payment:
+    path:     /lotto_list_synergy_ack_payment
+    defaults: { _controller: lottoUserBundle:Lotto:acknowledgement }
+lotto_error:
+    path:     /lotto_invalid_request_by_user
+    defaults: { _controller: lottoUserBundle:Lotto:error }
+
+lotto_user_profile:
+    path:     /lotto_user_profile
+    defaults: { _controller: lottoUserBundle:Default:profile }
+lotto_user_upload:
+    path:     /lotto_user_upload_picture
+    defaults: { _controller: lottoUserBundle:Default:upload }
+    
+lotto_account_verification:
+    path:     /accountVerification/{token}
+    defaults: { _controller: lottoUserBundle:Default:accountVerification }
+    
+toggle_lotto:
+    path:     /toggle_lotto/{id}
+    defaults: { _controller: lottoUserBundle:Admin:toggleLotto }
+    
+toggle_payment_action:
+    path:     /toggle_payment_of_participants/{id}
+    defaults: { _controller: lottoUserBundle:Admin:togglePayment }
+    
+lotto_account_registration_complete:
+    path:     /registration_complete_remaining_confirmation
+    defaults: { _controller: lottoUserBundle:Default:registerSuccess }
+    
+lotto_logout:
+    path:     /logout
+    defaults: { _controller: lottoUserBundle:Default:logout }
+    
+lotto_registered_users:
+    path:     /admin_user_list_registered_users
+    defaults: { _controller: lottoUserBundle:Admin:registeredUser }
+    
+lotto_view_participants:
+    path:     /admin_view_participants
+    defaults: { _controller: lottoUserBundle:Admin:participants }
+    
+lotto_faq:
+    path:     /faq
+    defaults: { _controller: lottoUserBundle:Default:faq }

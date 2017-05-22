@@ -1,0 +1,99 @@
+{% extends "::main.html.twig" %}
+{% block content %}
+    <div class="container blog singlepost">
+        <div class="row">
+            <article class="col-md-8">
+                <h1 class="page-header sidebar-title">Registration</h1>
+                {% if not form.vars.valid %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form_errors(form) }}
+                    </div>
+                {% endif %}
+                {% if error %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{error}}
+
+                    </div>
+                {% endif %}
+                <form  class="contact-form" method="post" action="#">  
+                    <label>Username</label>
+                    {{form_widget(form.username,{'attr':{"class":"form-control","placeholder":"Username"}})}}
+
+                    <label>Full name</label>
+                    {{form_widget(form.fullName,{'attr':{"class":"form-control","placeholder":"Full name"}})}}
+                    <label>Email Address</label>
+                    {{form_widget(form.email,{'attr':{"class":"form-control","placeholder":"Email"}})}}
+
+                    <label>Phone</label>
+                    {{form_widget(form.phone,{'attr':{"class":"form-control digit","placeholder":"Phone"}})}}
+
+
+                    <label>Password</label>
+                    {{form_widget(form.password.first,{'attr':{"class":"form-control","placeholder":"Password"}})}}
+
+                    <label>Confirm Password</label>
+                    {{form_widget(form.password.second,{'attr':{"class":"form-control","placeholder":"Password"}})}}
+
+                    <label>Bitcoin Address</label>
+                    {{form_widget(form.wallet,{'attr':{"class":"form-control","placeholder":"Wallet Address"}})}}
+
+
+                    <label>Country</label>
+                    {{form_widget(form.country,{'attr':{"class":"form-control","placeholder":"Wallet Address"}})}}
+                    <hr>
+                    <button class="btn btn-danger" type="submit">Submit</button>
+                    {{form_rest(form)}}
+                </form>
+            </article>
+            <!-- Blog Sidebar Column -->
+            <aside class="col-md-4 sidebar-padding">
+                {#<div class="blog-sidebar">
+                    <div class="input-group searchbar">
+                        <input type="text" class="form-control searchbar" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Search</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div>#}
+                <!-- Blog Categories -->
+                <div class="blog-sidebar">
+                    <h4 class="sidebar-title"><i class="fa fa-list-ul"></i> Notice</h4>
+                    <hr>
+                    <div class="alert alert-info">
+                        <p>Dear prospective winner, <br/> this is to notify you that Synergy Lotto is based on Bitcoin only, help us enter your correct bitcoin address should you become the lucky winner, as Bitcoin transactions are not reversible. </p>
+                    </div>
+                    <div class="alert alert-warning">
+                        <strong>Paswword must contain  </strong>
+                        <ol>
+                            <li>A minimum 8 characters.</li>
+                            <li>At least one lower case letter.</li>
+                            <li>At least one number</li>
+                            <li>One upper case letter</li>
+                        </ol>
+
+                    </div>
+                </div>
+
+            </aside>
+            <script>
+                $(function () {
+                     $("#linkRegister").addClass("active");
+                     $('.digit').keydown(function (e) {
+                        
+                        var k = e.which;
+                        /* numeric inputs can come from the keypad or the numeric row at the top */
+                        if ((k < 48 || k > 57) && (k < 96 || k > 105)) {
+                            e.preventDefault();
+                            return false;
+                        }
+                    });
+                    
+                    
+                })
+            </script>
+           
+        </div>
+    </div>
+{% endblock%}

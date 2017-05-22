@@ -1,0 +1,48 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <!-- /inner_content-->
+    <div class="inner_content">
+        <div class="w3l_agileits_breadcrumbs">
+            <div class="w3l_agileits_breadcrumbs_inner">
+                <ul>
+                    <li><a href="{{path("lotto_user_homepage")}}">Dashboard</a><span>«</span></li>
+                    <li> Payment</li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="inner_content_w3_agile_info two_in">
+
+            <!--/forms-->
+            <form method="post">
+                <div class="forms-main_agileits">
+                    <div class="graph-form agile_info_shadow">
+                        {% if status == "0" %}
+                            <h3 style="text-align: center" class="w3_inner_tittle two"> Coming Soon! </h3>
+                            <div class="">
+                               {# <h4>Our First Draw is on 17 June 2017 (The Big Win). Buy your ticket before the date so as to be part of it. </h4> #}
+                                 <img class="center-block" src="{{asset("bundles/lottouser/images/banner.png")}}" alt="img09" class="img-responsive"/>
+                            </div>
+                        {% elseif status == "1" %}
+                            <h3 class="w3_inner_tittle two"> Wait for the next draw. </h3>
+                            <div class="alert alert-info">
+                                <h4>No draw available. New draws are on Wednesdays and Saturdays.</h4>
+                            </div>
+                        {% else %}
+                            <h3 class="w3_inner_tittle two"> Payment </h3>
+                            <div class="alert alert-info">
+                                <p>Kindly send <strong>{{lotto.price}} BTC</strong> to</p>
+                                <p>this wallet address:<strong> {{account.wallet}}</strong> and verify your your payment. </p>
+                                <hr>
+                                <button class="btn btn-primary" type="submit">Confirm Payment <i class="fa fa-money" aria-hidden="true"></i></button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div> 
+            </form>
+
+
+        </div>
+    </div>
+{% endblock %}

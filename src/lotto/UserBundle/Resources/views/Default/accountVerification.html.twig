@@ -1,0 +1,21 @@
+{% extends "::main.html.twig" %}
+{% block content %}
+    <div class="container blog singlepost">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <article class="col-md-8">
+                <h3 class="page-header sidebar-title">Account Verification</h3>
+                {% if status == '0' %}
+                    <h3>{{user.fullName}}, your account had been verified, try logging in using your credentials. Feel free to contact the support team should you experience any challenges.</h3>
+                {% elseif status == '1' %}     
+                    <h3>Thank you for verifying your account, you can now log in and participate in the Lotto. Thank you, and Goodluck!</h3><br/><a href='{{path("lotto_login")}}'>Login to Play</a>
+                {% elseif status == '2' %}
+                    <h3>We could not fix what went wrong with your account as your verification information was not found.</h3>
+                {% endif %}
+            </article>
+            <div class="col-md-2"></div>
+            <!-- Blog Sidebar Column -->
+
+        </div>
+    </div>
+{% endblock%}
