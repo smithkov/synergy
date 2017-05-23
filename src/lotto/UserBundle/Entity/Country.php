@@ -34,6 +34,13 @@ class Country {
      * @ORM\Column(name="code", type="text")
      */
     private $code;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="isd_code", type="text")
+     */
+    private $isd_code;
 
     /**
      * @ORM\OneToMany(targetEntity="Register", mappedBy="country")
@@ -131,4 +138,28 @@ class Country {
         return $this->registers;
     }
 
+
+    /**
+     * Set isdCode
+     *
+     * @param string $isdCode
+     *
+     * @return Country
+     */
+    public function setIsdCode($isdCode)
+    {
+        $this->isd_code = $isdCode;
+
+        return $this;
+    }
+
+    /**
+     * Get isdCode
+     *
+     * @return string
+     */
+    public function getIsdCode()
+    {
+        return $this->isd_code;
+    }
 }

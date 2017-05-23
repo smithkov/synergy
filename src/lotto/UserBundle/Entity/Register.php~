@@ -517,4 +517,28 @@ class Register {
     {
         return $this->dateOfVerify;
     }
+
+    /**
+     * Set role
+     *
+     * @param \lotto\UserBundle\Entity\Role $role
+     *
+     * @return Register
+     */
+    public function setRole(\lotto\UserBundle\Entity\Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \lotto\UserBundle\Entity\Role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
 }

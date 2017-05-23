@@ -9,7 +9,14 @@ lotto_register:
     defaults: { _controller: lottoUserBundle:Default:register }
 lotto_login:
     path:     /login_to_synergy
-    defaults: { _controller: lottoUserBundle:Default:login }   
+    defaults: { _controller: lottoUserBundle:Default:login }
+    
+lotto_ajax_country_code:
+    path:     /countryCode/ajax
+    defaults: { _controller: lottoUserBundle:Default:loadCountryCode }
+    requirements:
+        _method:  POST
+    
 lotto_create:
     path:     /lotto_create_synergy_for_play
     defaults: { _controller: lottoUserBundle:Lotto:create }

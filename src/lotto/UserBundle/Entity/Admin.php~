@@ -161,5 +161,28 @@ class Admin
     {
         return $this->dor;
     }
-}
 
+    /**
+     * Set role
+     *
+     * @param \lotto\UserBundle\Entity\Role $role
+     *
+     * @return Admin
+     */
+    public function setRole(\lotto\UserBundle\Entity\Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \lotto\UserBundle\Entity\Role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+}

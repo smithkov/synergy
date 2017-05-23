@@ -12,7 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use lotto\UserBundle\Entity\Register;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller {
 
@@ -26,9 +28,9 @@ class DefaultController extends Controller {
             return $this->redirect($this->generateUrl("lotto_login"));
         }
         $user = $session->get('usersInfo');
-        $getAllAprovedUsers = $this->getDoctrine()->getRepository("lottoUserBundle:Play_record")->findBy(array('status' => TRUE));
+        // $getAllAprovedUsers = $this->getDoctrine()->getRepository("lottoUserBundle:Play_record")->findBy(array('status' => TRUE));
         //Total bitcoin raised for current draw
-      //  $curTotalBitcoin = $this->findOne("Lotto")->getPrice() * count($getAllAprovedUsers);
+        //  $curTotalBitcoin = $this->findOne("Lotto")->getPrice() * count($getAllAprovedUsers);
         //$firstWinner = 0.5 * $curTotalBitcoin;
         //$secondWinner = 0.2 * $curTotalBitcoin;
         //$jackpot = 0.1 * $curTotalBitcoin;
@@ -104,7 +106,7 @@ class DefaultController extends Controller {
                     'error_bubbling' => true
                 ))
                 ->add("phone", TextType::class, array(
-                    'constraints' => new NotBlank(),
+                    'constraints' => array(new NotBlank(array('message' => 'Phone number cannot be blank')), new Length(array('min' => 5, 'minMessage' => 'Phone number should not be less than five(5) digits'))),
                     'error_bubbling' => true
                 ))
                 ->add("wallet", TextType::class, array(
@@ -166,10 +168,23 @@ class DefaultController extends Controller {
 
         return $this->render('lottoUserBundle:Default:register.html.twig', array('form' => $form->createView(), 'error' => $error));
     }
+    public function loadCountryCodeAction(Request $request)
+    {
+        //$request = $this->container->get('request');
 
+        $countryId = $request->request->get('countryId');
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+
+
+        $getCountryCode = $this->getDoctrine()->getRepository('lottoUserBundle:Country')->find($countryId);
+        
+        $response->setContent(json_encode($getCountryCode->getIsdCode()));
+        return $response; 
+    }
     public function loginAction(Request $request) {
         $error = null;
-         $session = $request->getSession();
+        $session = $request->getSession();
         if ($session->has('usersInfo')) {
             return $this->redirect($this->generateUrl("lotto_user_homepage"));
         }
@@ -291,7 +306,11 @@ class DefaultController extends Controller {
             return $this->redirect($this->generateUrl("lotto_login"));
         }
         $user = $session->get('usersInfo');
-        $getUser = $this->getDoctrine()->getRepository("lottoUserBundle:Register")->find($user->getId());
+
+        $query = $em->createQuery('SELECT u,r FROM lottoUserBundle:Register u JOIN u.role r WHERE u.id = :id');
+        $query->setParameters(array('id' => $user->getId()));
+        $getUser = $query->getOneOrNullResult();
+
         $form = $this->createFormBuilder($getUser)
                 ->add("file", FileType::class, array(
                     'constraints' => new NotBlank(),

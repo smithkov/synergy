@@ -25,10 +25,15 @@
                     {{form_widget(form.fullName,{'attr':{"class":"form-control","placeholder":"Full name"}})}}
                     <label>Email Address</label>
                     {{form_widget(form.email,{'attr':{"class":"form-control","placeholder":"Email"}})}}
+                    <label>Country</label>
+                    {{form_widget(form.country,{'attr':{"class":"form-control txt-country","placeholder":"Wallet Address"}})}}
 
                     <label>Phone</label>
-                    {{form_widget(form.phone,{'attr':{"class":"form-control digit","placeholder":"Phone"}})}}
-
+                    <div class="input-group">
+                        <span class="input-group-addon">+</span>
+                        <span class="input-group-addon code"></span>
+                        {{form_widget(form.phone,{'attr':{"class":"form-control digit","placeholder":"Phone"}})}}
+                    </div>
 
                     <label>Password</label>
                     {{form_widget(form.password.first,{'attr':{"class":"form-control","placeholder":"Password"}})}}
@@ -40,8 +45,7 @@
                     {{form_widget(form.wallet,{'attr':{"class":"form-control","placeholder":"Wallet Address"}})}}
 
 
-                    <label>Country</label>
-                    {{form_widget(form.country,{'attr':{"class":"form-control","placeholder":"Wallet Address"}})}}
+
                     <hr>
                     <button class="btn btn-danger" type="submit">Submit</button>
                     {{form_rest(form)}}
@@ -79,21 +83,37 @@
             </aside>
             <script>
                 $(function () {
-                     $("#linkRegister").addClass("active");
-                     $('.digit').keydown(function (e) {
-                        
-                        var k = e.which;
-                        /* numeric inputs can come from the keypad or the numeric row at the top */
-                        if ((k < 48 || k > 57) && (k < 96 || k > 105)) {
-                            e.preventDefault();
-                            return false;
-                        }
+                    function loadCode()
+                    {
+                        var id = $('.txt-country option:selected').val();
+                        $.ajax({
+                            method: 'POST',
+                            url: "{{path('lotto_ajax_country_code')}}",
+                            data: {countryId: id},
+                            success: function (response) {
+                                $(".code").empty().html(response);
+                            }
+                        })
+
+                    }
+                    loadCode();
+                    $(".txt-country").change(function () {
+                        loadCode();
                     });
-                    
-                    
+                    $("#linkRegister").addClass("active");
+                    $('.digit').keydown(function (evt) {
+                        var charCode = (evt.which) ? evt.which : evt.keyCode;
+                        if (charCode != 46 && charCode > 31
+                                && (charCode < 48 || charCode > 57))
+                            return false;
+
+                        return true;
+                    });
+
+
                 })
             </script>
-           
+
         </div>
     </div>
 {% endblock%}

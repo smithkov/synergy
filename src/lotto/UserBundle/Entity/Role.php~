@@ -103,5 +103,80 @@ class Role
     {
         return $this->description;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->registers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->admins = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add register
+     *
+     * @param \lotto\UserBundle\Entity\Register $register
+     *
+     * @return Role
+     */
+    public function addRegister(\lotto\UserBundle\Entity\Register $register)
+    {
+        $this->registers[] = $register;
+
+        return $this;
+    }
+
+    /**
+     * Remove register
+     *
+     * @param \lotto\UserBundle\Entity\Register $register
+     */
+    public function removeRegister(\lotto\UserBundle\Entity\Register $register)
+    {
+        $this->registers->removeElement($register);
+    }
+
+    /**
+     * Get registers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegisters()
+    {
+        return $this->registers;
+    }
+
+    /**
+     * Add admin
+     *
+     * @param \lotto\UserBundle\Entity\Admin $admin
+     *
+     * @return Role
+     */
+    public function addAdmin(\lotto\UserBundle\Entity\Admin $admin)
+    {
+        $this->admins[] = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Remove admin
+     *
+     * @param \lotto\UserBundle\Entity\Admin $admin
+     */
+    public function removeAdmin(\lotto\UserBundle\Entity\Admin $admin)
+    {
+        $this->admins->removeElement($admin);
+    }
+
+    /**
+     * Get admins
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdmins()
+    {
+        return $this->admins;
+    }
+}
